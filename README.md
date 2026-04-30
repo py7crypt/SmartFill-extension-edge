@@ -43,9 +43,9 @@
 
 > **Requires Microsoft Edge 109 or later.**
 
-**1. Download and unzip**
+**1. Download or clone the repo**
 
-Unzip `smartfill-extension.zip` to a **permanent folder** on your PC.
+Place `smartfill-extension` repo to a **permanent folder** on your PC.
 ```
 C:\Extensions\SmartFill\
 ```
