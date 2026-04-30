@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SmartFill</title>
+<link rel="stylesheet" href="popup.css"/>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <div class="logo">⚡</div>
+      <span class="app-name">SmartFill</span>
+    </div>
+    <div class="header-right">
+      <button class="icon-btn" id="btnSettings" title="Settings">⚙</button>
+    </div>
+  </header>
+
+  <!-- Tab bar -->
+  <nav class="tabs">
+    <button class="tab active" data-tab="fill">Fill</button>
+    <button class="tab" data-tab="profiles">Profiles</button>
+    <button class="tab" data-tab="manual">Manual Map</button>
+  </nav>
+
+  <!-- ══ TAB: FILL ══════════════════════════════════════════════════════════ -->
+  <div class="tab-content active" id="tab-fill">
+
+    <div class="section-label">Active profile</div>
+    <div class="profile-select-row">
+      <select id="activeProfile" class="select"></select>
+      <button class="btn-icon-sm" id="btnNewProfile" title="New profile">＋</button>
+    </div>
+
+    <button class="btn-fill" id="btnFill">
+      <span>⚡ Fill This Page</span>
+    </button>
+
+    <div class="fill-result" id="fillResult"></div>
+
+    <div class="section-label" style="margin-top:12px">Preview</div>
+    <div class="preview-grid" id="previewGrid">
+      <div class="empty-state">Select a profile to preview</div>
+    </div>
+
+  </div>
+
+  <!-- ══ TAB: PROFILES ══════════════════════════════════════════════════════ -->
+  <div class="tab-content" id="tab-profiles">
+
+    <div class="profile-header-row">
+      <select id="editProfile" class="select"></select>
+      <button class="btn-icon-sm danger" id="btnDeleteProfile" title="Delete">🗑</button>
+    </div>
+
+    <div class="fields-form" id="fieldsForm">
+
+      <div class="field-group">
+        <div class="group-title">👤 Personal</div>
+        <div class="field-row"><label>First name</label><input type="text" data-key="firstName" placeholder="John"/></div>
+        <div class="field-row"><label>Last name</label><input type="text" data-key="lastName" placeholder="Doe"/></div>
+        <div class="field-row"><label>Full name</label><input type="text" data-key="fullName" placeholder="John Doe"/></div>
+        <div class="field-row"><label>Date of birth</label><input type="text" data-key="dob" placeholder="1990-01-15"/></div>
+        <div class="field-row"><label>Gender</label><input type="text" data-key="gender" placeholder="Male / Female"/></div>
+        <div class="field-row"><label>Nationality</label><input type="text" data-key="nationality" placeholder="Moroccan"/></div>
+        <div class="field-row"><label>National ID</label><input type="text" data-key="national_id" placeholder="BE123456"/></div>
+        <div class="field-row"><label>Passport</label><input type="text" data-key="passport" placeholder="AB123456"/></div>
+      </div>
+
+      <div class="field-group">
+        <div class="group-title">📬 Contact</div>
+        <div class="field-row"><label>Email</label><input type="email" data-key="email" placeholder="john@example.com"/></div>
+        <div class="field-row"><label>Phone</label><input type="text" data-key="phone" placeholder="+212 6XX XXX XXX"/></div>
+        <div class="field-row"><label>Website</label><input type="url" data-key="website" placeholder="https://john.dev"/></div>
+        <div class="field-row"><label>Username</label><input type="text" data-key="username" placeholder="johndoe"/></div>
+      </div>
+
+      <div class="field-group">
+        <div class="group-title">🏢 Professional</div>
+        <div class="field-row"><label>Company</label><input type="text" data-key="company" placeholder="Acme Corp"/></div>
+        <div class="field-row"><label>Job title</label><input type="text" data-key="jobTitle" placeholder="Software Engineer"/></div>
+      </div>
+
+      <div class="field-group">
+        <div class="group-title">🏠 Address</div>
+        <div class="field-row"><label>Street</label><input type="text" data-key="address" placeholder="123 Main St"/></div>
+        <div class="field-row"><label>Apt / Suite</label><input type="text" data-key="address2" placeholder="Apt 4B"/></div>
+        <div class="field-row"><label>City</label><input type="text" data-key="city" placeholder="Tangier"/></div>
+        <div class="field-row"><label>State / Region</label><input type="text" data-key="state" placeholder="Tanger-Tetouan"/></div>
+        <div class="field-row"><label>ZIP / Postal</label><input type="text" data-key="zip" placeholder="90000"/></div>
+        <div class="field-row"><label>Country</label><input type="text" data-key="country" placeholder="Morocco"/></div>
+      </div>
+
+    </div>
+
+    <div class="profile-actions">
+      <button class="btn-save" id="btnSaveProfile">💾 Save Profile</button>
+    </div>
+
+    <div class="save-msg" id="saveMsg"></div>
+
+  </div>
+
+  <!-- ══ TAB: MANUAL MAP ════════════════════════════════════════════════════ -->
+  <div class="tab-content" id="tab-manual">
+
+    <p class="manual-hint">
+      Fields the extension couldn't recognise automatically appear here.
+      Assign each one a profile field so it gets filled next time.
+    </p>
+
+    <button class="btn-scan" id="btnScan">🔍 Scan Page Fields</button>
+
+    <div id="manualList" class="manual-list"></div>
+
+    <div class="profile-actions" id="manualSaveRow" style="display:none">
+      <button class="btn-save" id="btnSaveMappings">💾 Save Mappings</button>
+    </div>
+
+  </div>
+
+</div>
+
+<script src="popup.js"></script>
+</body>
+</html>

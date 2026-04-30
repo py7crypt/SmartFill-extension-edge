@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>SmartFill — User Manual</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Segoe UI", Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #1e293b; background: #f8fafc; }
+  .page { max-width: 800px; margin: 0 auto; padding: 40px 32px; background: #fff; }
+  h1 { font-size: 28px; color: #1e40af; margin-bottom: 4px; }
+  .subtitle { color: #64748b; font-size: 15px; margin-bottom: 32px; }
+  h2 { font-size: 18px; color: #1e40af; margin: 28px 0 10px; border-bottom: 2px solid #dbeafe; padding-bottom: 6px; }
+  h3 { font-size: 14px; font-weight: 700; color: #334155; margin: 16px 0 6px; }
+  p { margin-bottom: 10px; color: #374151; }
+  ul, ol { padding-left: 20px; margin-bottom: 12px; }
+  li { margin-bottom: 5px; color: #374151; }
+  .step { display: flex; gap: 14px; align-items: flex-start; background: #f1f5f9; border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; }
+  .step-num { background: #1d4ed8; color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0; }
+  .step-body { flex: 1; }
+  .step-title { font-weight: 700; color: #1e293b; margin-bottom: 3px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+  .badge-blue  { background: #dbeafe; color: #1d4ed8; }
+  .badge-green { background: #d1fae5; color: #065f46; }
+  .badge-red   { background: #fee2e2; color: #991b1b; }
+  .badge-gray  { background: #f1f5f9; color: #475569; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 13px; }
+  th { background: #1e40af; color: #fff; padding: 8px 12px; text-align: left; }
+  td { padding: 7px 12px; border-bottom: 1px solid #e2e8f0; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  .tip { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 12px 0; }
+  .warn { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 12px 0; }
+  code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 12px; color: #0f172a; }
+  .toc { background: #f1f5f9; padding: 16px 20px; border-radius: 10px; margin-bottom: 28px; }
+  .toc li { margin-bottom: 3px; }
+  .toc a { color: #1d4ed8; text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  @media print { body { background: #fff; } .page { padding: 20px; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>⚡ SmartFill</h1>
+  <div class="subtitle">Auto Form Filler for Microsoft Edge — User Manual v1.0</div>
+
+  <div class="toc">
+    <strong>Table of Contents</strong>
+    <ol style="margin-top:8px">
+      <li><a href="#install">Installation</a></li>
+      <li><a href="#profiles">Creating & Managing Profiles</a></li>
+      <li><a href="#fill">Filling a Form</a></li>
+      <li><a href="#manual">Manual Field Mapping</a></li>
+      <li><a href="#detection">How Field Detection Works</a></li>
+      <li><a href="#fields">Supported Fields Reference</a></li>
+      <li><a href="#tips">Tips & Troubleshooting</a></li>
+    </ol>
+  </div>
+
+  <!-- ── INSTALL ─────────────────────────────────────────────────────────── -->
+  <h2 id="install">1. Installation</h2>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="step-title">Download the extension folder</div>
+      Unzip <code>smartfill-extension.zip</code> to a permanent location on your PC (e.g. <code>C:\Extensions\SmartFill\</code>). Don't move or delete this folder after installation.
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="step-title">Open Edge Extensions page</div>
+      In Microsoft Edge, go to: <code>edge://extensions</code> or click the <strong>⋯ menu → Extensions → Manage extensions</strong>.
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <div class="step-title">Enable Developer Mode</div>
+      Toggle <strong>Developer mode</strong> ON (bottom-left of the extensions page).
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <div class="step-title">Load the extension</div>
+      Click <strong>Load unpacked</strong> → select the <code>autofill-extension</code> folder (the one containing <code>manifest.json</code>). SmartFill will appear in your extensions list.
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-body">
+      <div class="step-title">Pin to toolbar</div>
+      Click the puzzle icon (🧩) in Edge's toolbar → click the pin icon next to SmartFill so the ⚡ icon always appears.
+    </div>
+  </div>
+
+  <div class="tip">
+    <strong>Note:</strong> Edge may warn "Extensions are turned off" after a restart in some versions. Just go back to <code>edge://extensions</code> and re-enable SmartFill if needed.
+  </div>
+
+  <!-- ── PROFILES ────────────────────────────────────────────────────────── -->
+  <h2 id="profiles">2. Creating & Managing Profiles</h2>
+  <p>Profiles store a set of personal information to fill into forms. You can have multiple profiles — for example, one personal and one professional.</p>
+
+  <h3>Create a new profile</h3>
+  <ol>
+    <li>Click the ⚡ SmartFill icon in the Edge toolbar.</li>
+    <li>On the <span class="badge badge-blue">Fill</span> tab, click the <strong>＋</strong> button next to the profile dropdown.</li>
+    <li>Enter a name (e.g. "Work", "Personal") and press OK.</li>
+    <li>You'll be taken to the <span class="badge badge-blue">Profiles</span> tab automatically — fill in your information.</li>
+    <li>Click <strong>💾 Save Profile</strong>.</li>
+  </ol>
+
+  <h3>Edit an existing profile</h3>
+  <ol>
+    <li>Open SmartFill → go to <span class="badge badge-blue">Profiles</span> tab.</li>
+    <li>Select the profile from the dropdown.</li>
+    <li>Edit any fields you want to change.</li>
+    <li>Click <strong>💾 Save Profile</strong>.</li>
+  </ol>
+
+  <h3>Delete a profile</h3>
+  <p>On the <span class="badge badge-blue">Profiles</span> tab, select the profile and click the 🗑 button. You must always keep at least one profile.</p>
+
+  <div class="warn">
+    <strong>Privacy:</strong> All profile data is stored locally in your browser using <code>chrome.storage.local</code>. It is never sent to any server.
+  </div>
+
+  <!-- ── FILL ────────────────────────────────────────────────────────────── -->
+  <h2 id="fill">3. Filling a Form</h2>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="step-title">Navigate to the form</div>
+      Open the webpage with the form you want to fill. Make sure the form is visible on screen.
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="step-title">Open SmartFill</div>
+      Click the ⚡ icon in the Edge toolbar.
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <div class="step-title">Select your profile</div>
+      Choose the correct profile from the dropdown. The preview shows what will be filled.
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <div class="step-title">Click ⚡ Fill This Page</div>
+      SmartFill scans all visible fields, matches them to your profile, and fills them in. A message shows how many fields were filled.
+    </div>
+  </div>
+
+  <div class="tip">
+    <strong>Tip:</strong> SmartFill fires native input events after filling, so React, Vue, and Angular-based forms register the values correctly.
+  </div>
+
+  <!-- ── MANUAL MAP ──────────────────────────────────────────────────────── -->
+  <h2 id="manual">4. Manual Field Mapping</h2>
+  <p>Some websites use unusual field names that SmartFill can't automatically recognise. The <span class="badge badge-blue">Manual Map</span> tab lets you manually assign these fields.</p>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="step-title">Go to Manual Map tab</div>
+      Open SmartFill → click the <strong>Manual Map</strong> tab.
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="step-title">Click 🔍 Scan Page Fields</div>
+      SmartFill scans all visible form fields and lists them. Each field shows:
+      <ul style="margin-top:6px">
+        <li><span class="badge badge-green">✓ Auto</span> — automatically matched</li>
+        <li><span class="badge badge-red">? Unmatched</span> — needs manual mapping</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <div class="step-title">Assign unmapped fields</div>
+      For each <span class="badge badge-red">? Unmatched</span> field, use the <strong>"Map to:"</strong> dropdown to select which profile field it corresponds to. You can also override auto-matched fields if needed.
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <div class="step-title">Save Mappings</div>
+      Click <strong>💾 Save Mappings</strong>. Your mappings are remembered for this site — next time you fill, SmartFill will use them automatically.
+    </div>
+  </div>
+
+  <div class="tip">
+    <strong>Mappings are persistent:</strong> Once you map a field, it stays mapped across browser sessions. You only need to do this once per website.
+  </div>
+
+  <!-- ── DETECTION ───────────────────────────────────────────────────────── -->
+  <h2 id="detection">5. How Field Detection Works</h2>
+  <p>SmartFill uses a 4-layer detection system to identify form fields:</p>
+
+  <table>
+    <tr><th>#</th><th>Method</th><th>Example</th></tr>
+    <tr><td>1</td><td><strong>autocomplete attribute</strong> (most reliable)</td><td><code>autocomplete="given-name"</code></td></tr>
+    <tr><td>2</td><td><strong>name / id / placeholder / aria-label</strong></td><td><code>name="first_name"</code>, <code>placeholder="Your email"</code></td></tr>
+    <tr><td>3</td><td><strong>Associated label text</strong></td><td><code>&lt;label for="f1"&gt;First name&lt;/label&gt;</code></td></tr>
+    <tr><td>4</td><td><strong>Input type hint</strong></td><td><code>type="email"</code>, <code>type="tel"</code></td></tr>
+  </table>
+
+  <p>SmartFill never fills <code>type="password"</code> or <code>type="hidden"</code> fields for security reasons.</p>
+
+  <!-- ── FIELDS TABLE ────────────────────────────────────────────────────── -->
+  <h2 id="fields">6. Supported Fields Reference</h2>
+
+  <table>
+    <tr><th>Profile Field</th><th>Detection Keywords</th><th>autocomplete</th></tr>
+    <tr><td>First name</td><td>first, fname, given, forename</td><td><code>given-name</code></td></tr>
+    <tr><td>Last name</td><td>last, lname, surname, family</td><td><code>family-name</code></td></tr>
+    <tr><td>Full name</td><td>name, fullname</td><td><code>name</code></td></tr>
+    <tr><td>Email</td><td>email, mail, courriel</td><td><code>email</code></td></tr>
+    <tr><td>Phone</td><td>phone, tel, mobile, cell, gsm</td><td><code>tel</code></td></tr>
+    <tr><td>Company</td><td>company, org, organization, employer</td><td><code>organization</code></td></tr>
+    <tr><td>Job title</td><td>title, job, position, role, fonction</td><td><code>organization-title</code></td></tr>
+    <tr><td>Street</td><td>address, street, addr, rue</td><td><code>address-line1</code></td></tr>
+    <tr><td>Apt / Suite</td><td>address2, apt, suite, unit</td><td><code>address-line2</code></td></tr>
+    <tr><td>City</td><td>city, town, locality, ville</td><td><code>address-level2</code></td></tr>
+    <tr><td>State / Region</td><td>state, province, region, county</td><td><code>address-level1</code></td></tr>
+    <tr><td>ZIP / Postal</td><td>zip, postal, postcode</td><td><code>postal-code</code></td></tr>
+    <tr><td>Country</td><td>country, nation, pays</td><td><code>country-name</code></td></tr>
+    <tr><td>Date of birth</td><td>dob, birth, birthday, birthdate</td><td><code>bday</code></td></tr>
+    <tr><td>Website</td><td>website, url, site, web</td><td><code>url</code></td></tr>
+    <tr><td>Username</td><td>username, login, handle, pseudo</td><td><code>username</code></td></tr>
+    <tr><td>Gender</td><td>gender, sex, genre</td><td><code>sex</code></td></tr>
+    <tr><td>Nationality</td><td>nationality, citizenship</td><td>—</td></tr>
+    <tr><td>National ID</td><td>national.id, cin, nni, id.card</td><td>—</td></tr>
+    <tr><td>Passport</td><td>passport, passport.number</td><td>—</td></tr>
+  </table>
+
+  <!-- ── TIPS ────────────────────────────────────────────────────────────── -->
+  <h2 id="tips">7. Tips & Troubleshooting</h2>
+
+  <h3>⚡ Fill button says "No matching fields found"</h3>
+  <ul>
+    <li>Make sure the form is visible and not inside a popup/modal that hasn't opened yet.</li>
+    <li>Use the <strong>Manual Map</strong> tab to manually assign fields.</li>
+    <li>Some single-page apps render forms after a delay — wait for the form to fully load before clicking Fill.</li>
+  </ul>
+
+  <h3>⚡ Fields get filled but the form doesn't register the values</h3>
+  <ul>
+    <li>SmartFill fires native input events to trigger React/Vue/Angular reactivity. If a framework still doesn't detect it, try clicking into each field once after filling.</li>
+  </ul>
+
+  <h3>⚡ "Could not reach the page" error</h3>
+  <ul>
+    <li>SmartFill cannot inject into Edge's internal pages (<code>edge://</code>), the Extensions page, or PDF viewers.</li>
+    <li>Make sure you're on a regular web page (<code>http://</code> or <code>https://</code>).</li>
+  </ul>
+
+  <h3>⚡ Extension disappeared after restarting Edge</h3>
+  <ul>
+    <li>Edge sometimes disables unpacked extensions on restart. Go to <code>edge://extensions</code> and re-enable SmartFill.</li>
+    <li>For a permanent installation without this issue, the extension would need to be published to the Microsoft Edge Add-ons store.</li>
+  </ul>
+
+  <h3>⚡ How to update the extension</h3>
+  <ol>
+    <li>Replace the files in your <code>autofill-extension</code> folder.</li>
+    <li>Go to <code>edge://extensions</code> → click the 🔄 refresh button next to SmartFill.</li>
+  </ol>
+
+  <br/>
+  <hr style="border:none;border-top:1px solid #e2e8f0;margin:20px 0"/>
+  <p style="color:#94a3b8;font-size:12px;text-align:center">SmartFill v1.0 — All data stored locally. No telemetry. No server.</p>
+
+</div>
+</body>
+</html>
